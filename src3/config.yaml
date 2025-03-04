@@ -1,0 +1,18 @@
+data:
+  data_root: './data'
+  val_size: 0.15
+  image_size: 224
+
+model:
+  emb_dim: 512
+  dropout: 0.3
+  num_attention_heads: 4
+
+training:
+  lr: 3e-4
+  epochs: 50
+  batch_size: 32
+  weight_decay: 1e-4
+  label_smoothing: 0.1
+
+save_dir: './checkpoints'

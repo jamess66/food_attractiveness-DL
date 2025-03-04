@@ -3,13 +3,13 @@ import torch.nn as nn
 import torchvision.models as models
 
 class FoodComparisonModel(nn.Module):
-    def __init__(self, backbone_name='resnet50', pretrained=True,
+    def __init__(self, backbone_name='efficientnet_b3', pretrained=True,
                  freeze_backbone=False, hidden_size=512, dropout_prob=0.3):
         super().__init__()
         
         # Load backbone
         if backbone_name == 'resnet50':
-            self.backbone = models.resnet50(pretrained=pretrained)
+            self.backbone = models.resnet50(weights=pretrained)
             self.backbone = nn.Sequential(*list(self.backbone.children())[:-1])
             self.feature_dim = 2048
         elif backbone_name == 'efficientnet_b3':
