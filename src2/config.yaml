@@ -1,6 +1,6 @@
 data_root: 'D:\cv_contest\food-attractive-DL\dataset'
 val_size: 0.15
-backbone: "resnet50"
+backbone: "efficientnet_b3"
 pretrained: True
 freeze_backbone: False
 hidden_size: 512

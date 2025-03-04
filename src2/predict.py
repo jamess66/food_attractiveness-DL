@@ -62,8 +62,22 @@ def main():
     print(f"Image 2 ({args.image2}): {result['image2_prob']*100:.1f}% confidence")
     print(f"\nConclusion: Image {result['prediction']} is more attractive!")
 
+def main2():
+    model_path = "D:/food_attractiveness-DL/src2/best_model_ef_15.pth"
+    image1_path = "D:/cv_contest/food-attractive-DL/dataset/test/337434745_2081658938686371_3091238496226170853_n.jpg"
+    image2_path = "D:/cv_contest/food-attractive-DL/dataset/test/338724255_183436517825831_9127192162501769012_n.jpg"
+    backbone = "efficientnet_b3"
+    
+    predictor = FoodAttractivenessPredictor(model_path, backbone)
+    result = predictor.predict_pair(image1_path, image2_path)
+    
+    print(f"\nComparison Result:")
+    print(f"Image 1 ({image1_path}): {result['image1_prob']*100:.1f}% confidence")
+    print(f"Image 2 ({image2_path}): {result['image2_prob']*100:.1f}% confidence")
+    print(f"\nConclusion: Image {result['prediction']} is more attractive!")
+
 if __name__ == '__main__':
-    main()
+    main2()
 
 
 # python predict.py --model checkpoints/best_model.pth --image1 D:\cv_contest\food-attractive-DL\dataset\test\927497_231353200376295_1174550114_n.jpg --image2 D:\cv_contest\food-attractive-DL\dataset\test\927497_231353200376295_1174550114_n.jpg --backbone resnet50

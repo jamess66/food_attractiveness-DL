@@ -31,15 +31,25 @@ class FoodPairDataset(Dataset):
         return img1, img2, label
 
 def create_datasets(config):
+    # Load CSV and extract food type from image names
     df = pd.read_csv(os.path.join(config['data_root'], 'winner.csv'))
     
+    # Extract food type from first character of image_1
+    df['food_type'] = df['image_1'].str[0]
+    
+    # Stratified split by food type for balanced validation
     train_df, val_df = train_test_split(
         df,
         test_size=config['val_size'],
-        stratify=df['winner'],
+        stratify=df['food_type'],  # Changed from 'winner' to 'food_type'
         random_state=42
     )
     
+    # Optional: Verify distribution
+    print("Validation set distribution by food type:")
+    print(val_df['food_type'].value_counts())
+    
+    # Rest of the code remains the same...
     train_transform = transforms.Compose([
         transforms.RandomResizedCrop(224),
         transforms.RandomHorizontalFlip(),
@@ -68,3 +78,19 @@ def create_datasets(config):
     )
     
     return train_dataset, val_dataset
+
+
+def main():
+    # Test dataset splitting
+    import yaml
+    
+    # Load configuration from YAML file
+    with open('src2/config.yaml', 'r') as file:
+        config = yaml.safe_load(file)
+        
+    train_dataset, val_dataset = create_datasets(config)
+    print("Train dataset filenames:", train_dataset.df['image_1'].tolist() + train_dataset.df['image_2'].tolist())
+    print("Validation dataset filenames:", val_dataset.df['image_1'].tolist() + val_dataset.df['image_2'].tolist())
+
+if __name__ == '__main__':
+    main()
