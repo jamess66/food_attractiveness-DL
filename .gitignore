@@ -1,9 +1,8 @@
 dataset/test
 dataset/test.csv
 dataset/images
-src/checkpoints
-src/__pycache__
-src2/checkpoints
-src2/__pycache__
-src3/checkpoints
-src3/__pycache__
+FoodAttractivenessSrc/checkpoints
+FoodAttractivenessSrc/__pycache__
+
+cp/*.pth
+.vscode
