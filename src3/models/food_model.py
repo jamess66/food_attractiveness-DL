@@ -10,6 +10,7 @@ class FoodComparisonModel(nn.Module):
         
         # Base feature extractor
         self.backbone = self._build_backbone(backbone_name, pretrained)
+<<<<<<< Updated upstream
         self.feature_dim = self._get_feature_dim()
         
         # Attention modules
@@ -23,6 +24,25 @@ class FoodComparisonModel(nn.Module):
         # Feature projection
         self.projection = nn.Sequential(
             nn.Linear(self.feature_dim, emb_dim),
+=======
+        self.num_channels, self.h, self.w = self._get_feature_shape()
+        self.flattened_dim = self.num_channels * self.h * self.w
+        
+        # Attention modules (using proper channel dimensions)
+        self.attention = nn.Sequential(
+            SqueezeExcitation(
+                input_channels=self.num_channels,
+                squeeze_channels=self.num_channels // 16
+            ),
+            nn.Conv2d(self.num_channels, self.num_channels, 3, padding=1),
+            nn.GroupNorm(8, self.num_channels),
+            nn.ReLU(inplace=True)
+        )
+        
+        # Feature projection (using flattened dimensions)
+        self.projection = nn.Sequential(
+            nn.Linear(self.flattened_dim, emb_dim),
+>>>>>>> Stashed changes
             nn.BatchNorm1d(emb_dim),
             nn.ReLU(inplace=True),
             nn.Dropout(dropout)
@@ -49,11 +69,19 @@ class FoodComparisonModel(nn.Module):
         else:
             raise ValueError(f"Unsupported backbone: {name}")
 
+<<<<<<< Updated upstream
     def _get_feature_dim(self):
         with torch.no_grad():
             dummy = torch.rand(1, 3, 224, 224)
             features = self.backbone(dummy)
             return features.shape[1] * features.shape[2] * features.shape[3]
+=======
+    def _get_feature_shape(self):
+        with torch.no_grad():
+            dummy = torch.rand(1, 3, 224, 224)
+            features = self.backbone(dummy)
+            return features.shape[1], features.shape[2], features.shape[3]
+>>>>>>> Stashed changes
 
     def _init_weights(self):
         for m in self.modules():

@@ -9,7 +9,7 @@ class FoodComparisonModel(nn.Module):
         
         # Load backbone and calculate feature dimension
         if backbone_name == 'resnet50':
-            self.backbone = models.resnet50(weights=pretrained)
+            self.backbone = models.resnet50(pretrained=pretrained)
             self.backbone = nn.Sequential(*list(self.backbone.children())[:-1])
             self.feature_dim = 2048
         elif backbone_name == 'convnext':

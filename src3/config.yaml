@@ -1,5 +1,9 @@
 data:
+<<<<<<< Updated upstream
   data_root: './data'
+=======
+  data_root: 'D:\food_attractiveness-DL\dataset'
+>>>>>>> Stashed changes
   val_size: 0.15
   image_size: 224
 
