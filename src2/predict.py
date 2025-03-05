@@ -47,10 +47,10 @@ class FoodAttractivenessPredictor:
 
 def main():
     parser = argparse.ArgumentParser(description='Compare food attractiveness')
-    parser.add_argument('--model', type=str, required=True, help='Path to trained model')
+    parser.add_argument('--model', type=str, default="../best_model_85.56-71.53.pth")
     parser.add_argument('--image1', type=str, required=True, help='First image path')
     parser.add_argument('--image2', type=str, required=True, help='Second image path')
-    parser.add_argument('--backbone', type=str, default='resnet50', 
+    parser.add_argument('--backbone', type=str, default='convnext', 
                        help='Model backbone used during training')
     args = parser.parse_args()
     
@@ -63,9 +63,9 @@ def main():
     print(f"\nConclusion: Image {result['prediction']} is more attractive!")
 
 def main2():
-    model_path = "D:/food_attractiveness-DL/epoch_28.pth"
-    image2_path = "D:/cv_contest/food-attractive-DL/dataset/test/928476_262303637265385_790436171_n.jpg"
-    image1_path = "D:/cv_contest/food-attractive-DL/dataset/test/12446305_1069212233125376_717746492_n.jpg"
+    model_path = "D:/food_attractiveness-DL/best_model_85.56-71.53.pth"
+    image2_path = "D:/food_attractiveness-DL/ig_img/IntragramImages/Burger/1168588_465277833652447_1891788348_n.jpg"
+    image1_path = "D:/food_attractiveness-DL/ig_img/IntragramImages/Burger/1169228_836002603212167_1448913030_n.jpg"
     backbone = "convnext"
     
     predictor = FoodAttractivenessPredictor(model_path, backbone)
@@ -77,7 +77,7 @@ def main2():
     print(f"\nConclusion: Image {result['prediction']} is more attractive!")
 
 if __name__ == '__main__':
-    main2()
+    main()
 
 
 # python predict.py --model checkpoints/best_model.pth --image1 D:\cv_contest\food-attractive-DL\dataset\test\927497_231353200376295_1174550114_n.jpg --image2 D:\cv_contest\food-attractive-DL\dataset\test\927497_231353200376295_1174550114_n.jpg --backbone resnet50
