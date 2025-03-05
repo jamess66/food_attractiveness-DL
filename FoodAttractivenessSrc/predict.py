@@ -47,7 +47,7 @@ class FoodAttractivenessPredictor:
 
 def main():
     parser = argparse.ArgumentParser(description='Compare food attractiveness')
-    parser.add_argument('--model', type=str, default="../best_model_85.56-71.53.pth")
+    parser.add_argument('--model', type=str, default="../cp/best_model_85.56-71.53.pth")
     parser.add_argument('--image1', type=str, required=True, help='First image path')
     parser.add_argument('--image2', type=str, required=True, help='Second image path')
     parser.add_argument('--backbone', type=str, default='convnext', 
