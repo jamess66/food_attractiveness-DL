@@ -63,10 +63,10 @@ def main():
     print(f"\nConclusion: Image {result['prediction']} is more attractive!")
 
 def main2():
-    model_path = "D:/food_attractiveness-DL/src2/best_model_ef_15.pth"
-    image1_path = "D:/cv_contest/food-attractive-DL/dataset/test/337434745_2081658938686371_3091238496226170853_n.jpg"
-    image2_path = "D:/cv_contest/food-attractive-DL/dataset/test/338724255_183436517825831_9127192162501769012_n.jpg"
-    backbone = "efficientnet_b3"
+    model_path = "D:/food_attractiveness-DL/epoch_28.pth"
+    image2_path = "D:/cv_contest/food-attractive-DL/dataset/test/928476_262303637265385_790436171_n.jpg"
+    image1_path = "D:/cv_contest/food-attractive-DL/dataset/test/12446305_1069212233125376_717746492_n.jpg"
+    backbone = "convnext"
     
     predictor = FoodAttractivenessPredictor(model_path, backbone)
     result = predictor.predict_pair(image1_path, image2_path)

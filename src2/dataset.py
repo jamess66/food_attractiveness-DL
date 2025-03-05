@@ -31,29 +31,23 @@ class FoodPairDataset(Dataset):
         return img1, img2, label
 
 def create_datasets(config):
-    # Load CSV and extract food type from image names
     df = pd.read_csv(os.path.join(config['data_root'], 'winner.csv'))
     
-    # Extract food type from first character of image_1
     df['food_type'] = df['image_1'].str[0]
     
-    # Stratified split by food type for balanced validation
     train_df, val_df = train_test_split(
         df,
         test_size=config['val_size'],
-        stratify=df['food_type'],  # Changed from 'winner' to 'food_type'
+        stratify=df['food_type'],
         random_state=42
     )
     
-    # Optional: Verify distribution
-    print("Validation set distribution by food type:")
-    print(val_df['food_type'].value_counts())
-    
-    # Rest of the code remains the same...
     train_transform = transforms.Compose([
-        transforms.RandomResizedCrop(224),
+        transforms.RandomResizedCrop(224, scale=(0.8, 1.0)),
         transforms.RandomHorizontalFlip(),
+        transforms.RandomRotation(15),
         transforms.ColorJitter(0.3, 0.3, 0.3),
+        transforms.GaussianBlur(3),
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
     ])

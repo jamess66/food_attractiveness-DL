@@ -13,7 +13,7 @@ class FoodComparisonTrainer:
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.model = self._build_model()
         self.criterion = torch.nn.CrossEntropyLoss()
-        self.optimizer = torch.optim.Adam(self.model.parameters(), lr=config['lr'])
+        self.optimizer = torch.optim.Adam(self.model.parameters(), lr=config['lr'], weight_decay=config['weight_decay'])
         self.scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
             self.optimizer, 'min', patience=2
         )
