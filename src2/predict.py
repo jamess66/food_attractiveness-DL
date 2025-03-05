@@ -6,7 +6,7 @@ import argparse
 from model import FoodComparisonModel
 
 class FoodAttractivenessPredictor:
-    def __init__(self, model_path, backbone='resnet50', device='cuda'):
+    def __init__(self, model_path, backbone='convnext', device='cuda'):
         self.device = torch.device(device if torch.cuda.is_available() else 'cpu')
         self.model = self._load_model(model_path, backbone)
         self.transform = transforms.Compose([
@@ -60,20 +60,6 @@ def main():
     print(f"\nComparison Result:")
     print(f"Image 1 ({args.image1}): {result['image1_prob']*100:.1f}% confidence")
     print(f"Image 2 ({args.image2}): {result['image2_prob']*100:.1f}% confidence")
-    print(f"\nConclusion: Image {result['prediction']} is more attractive!")
-
-def main2():
-    model_path = "D:/food_attractiveness-DL/best_model_85.56-71.53.pth"
-    image2_path = "D:/food_attractiveness-DL/ig_img/IntragramImages/Burger/1168588_465277833652447_1891788348_n.jpg"
-    image1_path = "D:/food_attractiveness-DL/ig_img/IntragramImages/Burger/1169228_836002603212167_1448913030_n.jpg"
-    backbone = "convnext"
-    
-    predictor = FoodAttractivenessPredictor(model_path, backbone)
-    result = predictor.predict_pair(image1_path, image2_path)
-    
-    print(f"\nComparison Result:")
-    print(f"Image 1 ({image1_path}): {result['image1_prob']*100:.1f}% confidence")
-    print(f"Image 2 ({image2_path}): {result['image2_prob']*100:.1f}% confidence")
     print(f"\nConclusion: Image {result['prediction']} is more attractive!")
 
 if __name__ == '__main__':
